@@ -1,9 +1,17 @@
 package mobotech.recyclerview;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import mobotech.recyclerview.adapter.ContactAdapter;
+import mobotech.recyclerview.model.ContactInfo;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,6 +19,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ContactInfo contactInfo = new ContactInfo();
+        contactInfo.name = "MyName";
+        contactInfo.surname = "MySurname";
+        contactInfo.email = "MyEmail";
+        List<ContactInfo> list = new ArrayList<>();
+        list.add(contactInfo);
+        list.add(contactInfo);
+        list.add(contactInfo);
+        list.add(contactInfo);
+        list.add(contactInfo);
+        list.add(contactInfo);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewCards);
+        recyclerView.setHasFixedSize(true);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        recyclerView.setAdapter(new ContactAdapter(list));
+
     }
 
     @Override
