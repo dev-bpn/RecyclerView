@@ -1,16 +1,50 @@
 package mobotech.recyclerview;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        linearLayoutManager = new LinearLayoutManager(this);
+        MyRecyclerAdapter adapter = new MyRecyclerAdapter(getHeader(), getListItems());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+    }
+
+    public  Header getHeader()
+    {
+        Header header = new Header();
+        header.setHeader("I'm header");
+        return header;
+    }
+
+    public List<SingleRowItem> getListItems()
+    {
+        List<SingleRowItem> listItems = new ArrayList<>();
+        for (int i = 0; i<10; i++) {
+            SingleRowItem item = new SingleRowItem();
+            item.setName("image" + i);
+            if (i % 2 == 0)
+                item.setId(R.drawable.d);
+            else
+                item.setId(R.drawable.e);
+            listItems.add(item);
+        }
+        return listItems;
     }
 
     @Override
